@@ -10,7 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>manager-app</module>
+        <module>manager-service</module>
+        <module>catalogue-service</module>
     </modules>
 
     <properties>

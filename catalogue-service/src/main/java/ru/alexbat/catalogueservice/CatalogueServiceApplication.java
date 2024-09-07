@@ -1,13 +1,13 @@
-package ru.alexbat.managerapp;
+package ru.alexbat.catalogueservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ManagerAppApplication {
+public class CatalogueServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ManagerAppApplication.class, args);
+        SpringApplication.run(CatalogueServiceApplication.class, args);
     }
 
 }
