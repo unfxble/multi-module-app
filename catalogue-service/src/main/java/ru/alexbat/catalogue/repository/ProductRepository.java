@@ -1,16 +1,22 @@
 package ru.alexbat.catalogue.repository;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import ru.alexbat.catalogue.entity.Product;
 
-import java.util.List;
-import java.util.Optional;
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
-public interface ProductRepository {
-    List<Product> findAll();
+    Iterable<Product> findAllByTitleLikeIgnoreCase(String title);
 
-    Product save(Product product);
+    @Query(value = "SELECT p from Product p where p.title ilike :filter")
+    Iterable<Product> findAllByFilterJpql(@Param("filter") String filter);
 
-    Optional<Product> findById(Long productId);
+    @Query(value = "SELECT * from catalogue.t_product  where title ilike :filter", nativeQuery = true)
+    Iterable<Product> findAllByFilterSql(@Param("filter") String filter);
 
-    void deleteById(Long id);
+    @Query(name = "Product.findAllByTitleLikeIgnoringCase")
+    Iterable<Product> findAllByFilterNamedQuery(@Param("filter") String filter);
 }
+
+
