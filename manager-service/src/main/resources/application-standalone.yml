@@ -4,7 +4,19 @@ server:
 spring:
   application:
     name: manager-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/multi_module_app
+    username: postgres
+    password: postgres
+  flyway:
+    schemas:
+      - user_management
+    enabled: true
+  jpa:
+    show-sql: true
 
 services:
   catalogue:
     uri: http://localhost:8081
+    username: catalogue_service_user
+    password: password
