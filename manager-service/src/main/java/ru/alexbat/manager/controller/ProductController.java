@@ -1,6 +1,7 @@
 package ru.alexbat.manager.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,9 @@ import ru.alexbat.manager.client.exception.BadRequestException;
 import ru.alexbat.manager.controller.payload.NewProductPayload;
 import ru.alexbat.manager.entity.Product;
 
+import java.security.Principal;
+import java.util.logging.Logger;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("catalogue/products")
@@ -20,7 +24,10 @@ public class ProductController {
     private final ProductsRestClient productsRestClient;
 
     @GetMapping("/list")
-    public String getProductsList(Model model, @RequestParam(name = "filter", required = false) String filter) {
+    public String getProductsList(Model model, @RequestParam(name = "filter", required = false) String filter,
+                                  Principal principal) {
+        LoggerFactory.getLogger(ProductController.class)
+            .info("User: {}", principal);
         model.addAttribute("products", productsRestClient.findAllProducts(filter));
         model.addAttribute("filter", filter);
         return "catalogue/products/list";
